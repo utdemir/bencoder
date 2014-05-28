@@ -1,6 +1,5 @@
 import re
 import string
-import operator as op
 import itertools as it
 
 def encode(obj):
@@ -27,7 +26,7 @@ def encode(obj):
     elif isinstance(obj, dict):
         if all(isinstance(i, bytes) for i in obj.keys()):
             items = list(obj.items())
-            items.sort(key=op.itemgetter(0))
+            items.sort()
             return b"d" + b"".join(map(encode, it.chain(*items))) + b"e"
         else:
             raise TypeError("dict keys should be bytes")
