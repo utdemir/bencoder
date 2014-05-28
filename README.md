@@ -1,5 +1,6 @@
 bencoder
 ========
+[![Build Status](https://travis-ci.org/utdemir/bencoder.svg?branch=master)](https://travis-ci.org/utdemir/bencoder)
 
 A simple up-to-date bencode decoder-encoder library on Python.
 
