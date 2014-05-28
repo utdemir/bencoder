@@ -8,12 +8,14 @@ def encode(obj):
     bencodes given object. Given object should be a int,
     bytes, list or dict.
 
-    >>> [encode(i) for i in (-2, 42, b"answer", b"")]
-    [b'i-2e', b'i42e', b'6:answer', b'0:']
-    >>> encode([b'a', 42, [13, 14]])
-    b'l1:ai42eli13ei14eee'
-    >>> encode({b'bar': b'spam', b'foo': 42, b'mess': [1, b'c']})
-    b'd3:bar4:spam3:fooi42e4:messli1e1:cee'
+    >>> [encode(i) for i in (-2, 42, b"answer", b"")] \
+            == [b'i-2e', b'i42e', b'6:answer', b'0:']
+    True
+    >>> encode([b'a', 42, [13, 14]]) == b'l1:ai42eli13ei14eee'
+    True
+    >>> encode({b'bar': b'spam', b'foo': 42, b'mess': [1, b'c']}) \
+            == b'd3:bar4:spam3:fooi42e4:messli1e1:cee'
+    True
     """
 
     if isinstance(obj, int):
@@ -37,8 +39,8 @@ def decode(s):
    
     >>> decode(b'i-42e')
     -42
-    >>> decode(b'4:utku')
-    b'utku'
+    >>> decode(b'4:utku') == b'utku'
+    True
     >>> decode(b'li1eli2eli3eeee')
     [1, [2, [3]]]
     >>> decode(b'd3:bar4:spam3:fooi42ee') == {b'bar': b'spam', b'foo': 42}
@@ -47,7 +49,7 @@ def decode(s):
 
     def decode_first(s):
         if s.startswith(b"i"):
-            match = re.match(rb"i(-?\d+)e", s)
+            match = re.match(b"i(-?\\d+)e", s)
             return int(match.group(1)), s[match.span()[1]:]
         elif s.startswith(b"l") or s.startswith(b"d"):
             l = []
@@ -61,7 +63,7 @@ def decode(s):
             else:
                 return {i: j for i, j in zip(l[::2], l[1::2])}, rest
         elif s[0] in string.digits.encode():
-            m = re.match(rb"(\d+):", s)
+            m = re.match(b"(\\d+):", s)
             length = int(m.group(1))
             rest_i = m.span()[1]
             start = rest_i
