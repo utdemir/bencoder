@@ -53,21 +53,21 @@ Or you can use this source
 
 ### Real Life Scenario
 
->>> import bencoder
->>> f = open("archlinux-2014.05.01-dual.iso.torrent", "rb")
->>> d = bencoder.decode(f.read())
->>> del d[b"info"][b"pieces"] # That's a long hash
->>> from pprint import pprint
->>> pprint(d)
-{b'announce': b'http://tracker.archlinux.org:6969/announce',
- b'comment': b'Arch Linux 2014.05.01 (www.archlinux.org)',
- b'created by': b'mktorrent 1.0',
- b'creation date': 1398921725,
- b'info': {b'length': 565182464,
-           b'name': b'archlinux-2014.05.01-dual.iso',
-           b'piece length': 524288},
- b'url-list': [b'http://mirror.aarnet.edu.au/pub/archlinux/iso/2014.05.01/',
-               b'http://ftp.iinet.net.au/pub/archlinux/iso/2014.05.01/',
-               ....
-               b'http://mirror-fpt-telecom.fpt.net/archlinux/iso/2014.05.01/']}
+    >>> import bencoder
+    >>> f = open("archlinux-2014.05.01-dual.iso.torrent", "rb")
+    >>> d = bencoder.decode(f.read())
+    >>> del d[b"info"][b"pieces"] # That's a long hash
+    >>> from pprint import pprint
+    >>> pprint(d)
+    {b'announce': b'http://tracker.archlinux.org:6969/announce',
+    b'comment': b'Arch Linux 2014.05.01 (www.archlinux.org)',
+    b'created by': b'mktorrent 1.0',
+    b'creation date': 1398921725,
+    b'info': {b'length': 565182464,
+            b'name': b'archlinux-2014.05.01-dual.iso',
+            b'piece length': 524288},
+    b'url-list': [b'http://mirror.aarnet.edu.au/pub/archlinux/iso/2014.05.01/',
+                b'http://ftp.iinet.net.au/pub/archlinux/iso/2014.05.01/',
+                ....
+                b'http://mirror-fpt-telecom.fpt.net/archlinux/iso/2014.05.01/']}
 
