@@ -1,3 +1,14 @@
+"""
+A simple bencoding implementation in pure Python.
+
+Consult help(encode) and help(decode) for more info.
+
+>>> encode(42)
+b'i42e'
+>>> decode(b'i42e')
+42
+"""
+
 import re
 import string
 import itertools as it
