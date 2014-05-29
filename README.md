@@ -12,7 +12,6 @@ Usage
 -----
 
     >>> import bencoder
-    >>> help(bencoder.decode)
 
     >>> print(bencoder.decode.__doc__)
 
@@ -37,7 +36,7 @@ Usage
         True
         >>> encode([b'a', 42, [13, 14]]) == b'l1:ai42eli13ei14eee'
         True
-        >>> encode({b'bar': b'spam', b'foo': 42, b'mess': [1, b'c']}) i
+        >>> encode({b'bar': b'spam', b'foo': 42, b'mess': [1, b'c']}) \
                    == b'd3:bar4:spam3:fooi42e4:messli1e1:cee'
         True
 
