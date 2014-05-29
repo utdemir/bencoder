@@ -3,8 +3,8 @@ A simple bencoding implementation in pure Python.
 
 Consult help(encode) and help(decode) for more info.
 
->>> encode(42)
-b'i42e'
+>>> encode(42) == b'i42e'
+True
 >>> decode(b'i42e')
 42
 """
