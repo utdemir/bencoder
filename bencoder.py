@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 A simple bencoding implementation in pure Python.
 
