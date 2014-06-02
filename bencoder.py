@@ -16,7 +16,8 @@ import itertools as it
 def encode(obj):
     """
     bencodes given object. Given object should be a int,
-    bytes, list or dict.
+    bytes, list or dict. If a str is given, it'll be
+    decoded as ASCII.
 
     >>> [encode(i) for i in (-2, 42, b"answer", b"")] \
             == [b'i-2e', b'i42e', b'6:answer', b'0:']
@@ -32,6 +33,8 @@ def encode(obj):
         return b"i" + str(obj).encode() + b"e"
     elif isinstance(obj, bytes):
         return str(len(obj)).encode() + b":" + obj
+    elif isinstance(obj, str):
+        return encode(obj.encode("ascii"))
     elif isinstance(obj, list):
         return b"l" + b"".join(map(encode, obj)) + b"e"
     elif isinstance(obj, dict):
@@ -40,13 +43,13 @@ def encode(obj):
             items.sort()
             return b"d" + b"".join(map(encode, it.chain(*items))) + b"e"
         else:
-            raise TypeError("dict keys should be bytes")
-    raise TypeError("Allowed types: int, bytes, list, dict; not %s", type(obj))
+            raise ValueError("dict keys should be bytes")
+    raise ValueError("Allowed types: int, bytes, list, dict; not %s", type(obj))
 
 def decode(s):
     """
     Decodes given bencoded bytes object.
-   
+
     >>> decode(b'i-42e')
     -42
     >>> decode(b'4:utku') == b'utku'
@@ -56,7 +59,6 @@ def decode(s):
     >>> decode(b'd3:bar4:spam3:fooi42ee') == {b'bar': b'spam', b'foo': 42}
     True
     """
-
     def decode_first(s):
         if s.startswith(b"i"):
             match = re.match(b"i(-?\\d+)e", s)
@@ -82,6 +84,10 @@ def decode(s):
         else:
             print(s[0])
             assert False
+
+    if isinstance(s, str):
+        s = s.encode("ascii")
+
     ret, rest = decode_first(s)
     if rest:
         raise TypeError("Malformed input.")
@@ -90,4 +96,3 @@ def decode(s):
 if __name__ == "__main__":
    import doctest
    doctest.testmod()
-
