@@ -84,15 +84,14 @@ def decode(s):
             end = rest_i + length
             return s[start:end], s[end:]
         else:
-            print(s[0])
-            assert False
+            raise ValueError("Malformed input.")
 
     if isinstance(s, str):
         s = s.encode("ascii")
 
     ret, rest = decode_first(s)
     if rest:
-        raise TypeError("Malformed input.")
+        raise ValueError("Malformed input.")
     return ret
 
 if __name__ == "__main__":
