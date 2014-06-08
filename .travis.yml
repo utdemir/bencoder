@@ -5,7 +5,7 @@ python:
 - '3.3'
 - '3.4'
 - pypy
-script: nosetests --with-doctest
+script: nosetests --with-doctest bencoder.py
 deploy:
   provider: pypi
   user: utdemir
