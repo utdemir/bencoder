@@ -1,8 +1,16 @@
 language: python
 python:
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "pypy"
+- '2.7'
+- '3.2'
+- '3.3'
+- '3.4'
+- pypy
 script: nosetests --with-doctest
+deploy:
+  provider: pypi
+  user: utdemir
+  password:
+    secure: MwI5xm7iOj6LTk47yUTyUGWdgOCAt7DQffj/vwq+7LCjJPphHp3IPZJwQvtru0bVlOv163Lf1vxBVV0b8f/18sMPr07JvlpWfx3enQDTXcmCVVtyGiZSSN8/H/TSZX36xnZ3VG2swOUXx9KX33F7e5MOn1LP5XPCvzePd4QM0tQ=
+  on:
+    tags: true
+    repo: utdemir/bencoder
