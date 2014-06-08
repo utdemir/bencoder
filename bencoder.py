@@ -76,7 +76,7 @@ def decode(s):
                 return l, rest
             else:
                 return {i: j for i, j in zip(l[::2], l[1::2])}, rest
-        elif s[0] in string.digits.encode():
+        elif any(s.startswith(i.encode()) for i in string.digits):
             m = re.match(b"(\\d+):", s)
             length = int(m.group(1))
             rest_i = m.span()[1]
