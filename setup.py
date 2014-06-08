@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='bencoder',
-      version='0.2.0',
+      version='0.2.1',
       description='A simple bencode decoder/encoder library in pure Python.',
       url='https://github.com/utdemir/bencoder',
       author='Utku Demir',
