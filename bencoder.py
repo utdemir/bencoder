@@ -19,7 +19,7 @@ def encode(obj):
     """
     bencodes given object. Given object should be a int,
     bytes, list or dict. If a str is given, it'll be
-    decoded as ASCII.
+    encoded as ASCII.
 
     >>> [encode(i) for i in (-2, 42, b"answer", b"")] \
             == [b'i-2e', b'i42e', b'6:answer', b'0:']
