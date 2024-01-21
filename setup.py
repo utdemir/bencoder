@@ -12,7 +12,7 @@ setup(name='bencoder',
       classifiers=[
           'Environment :: Other Environment',
           'Intended Audience :: Developers',
-          'License :: OSI Approved :: GNU General Public License (GPL)',
+          'License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
           'Operating System :: OS Independent',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 3',
