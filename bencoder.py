@@ -61,36 +61,36 @@ def decode(s):
     >>> decode(b'd3:bar4:spam3:fooi42ee') == {b'bar': b'spam', b'foo': 42}
     True
     """
-    def decode_first(s):
-        if s.startswith(b"i"):
-            match = re.match(b"i(-?\\d+)e", s)
-            return int(match.group(1)), s[match.span()[1]:]
-        elif s.startswith(b"l") or s.startswith(b"d"):
+    def decode_first(s, i):
+        if s.startswith(b"i", i):
+            match = re.compile(b"i(-?\\d+)e").match(s, i)
+            return int(match.group(1)), match.end()
+        elif s.startswith(b"l", i) or s.startswith(b"d", i):
+            start = i
             l = []
-            rest = s[1:]
-            while not rest.startswith(b"e"):
-                elem, rest = decode_first(rest)
+            i += 1
+            while not s.startswith(b"e", i):
+                elem, i = decode_first(s, i)
                 l.append(elem)
-            rest = rest[1:]
-            if s.startswith(b"l"):
-                return l, rest
+            i += 1
+            if s.startswith(b"l", start):
+                return l, i
             else:
-                return {i: j for i, j in zip(l[::2], l[1::2])}, rest
-        elif any(s.startswith(i.encode()) for i in string.digits):
-            m = re.match(b"(\\d+):", s)
+                return {i: j for i, j in zip(l[::2], l[1::2])}, i
+        elif any(s.startswith(d.encode(), i) for d in string.digits):
+            m = re.compile(b"(\\d+):").match(s, i)
             length = int(m.group(1))
-            rest_i = m.span()[1]
-            start = rest_i
-            end = rest_i + length
-            return s[start:end], s[end:]
+            i = m.end()
+            end = i + length
+            return s[i:end], end
         else:
             raise ValueError("Malformed input.")
 
     if isinstance(s, str):
         s = s.encode("ascii")
 
-    ret, rest = decode_first(s)
-    if rest:
+    ret, i = decode_first(s, 0)
+    if i != len(s):
         raise ValueError("Malformed input.")
     return ret
 
